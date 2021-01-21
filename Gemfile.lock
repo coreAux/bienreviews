@@ -39,6 +39,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activejob (6.1.1)
       activesupport (= 6.1.1)
       globalid (>= 0.3.6)
@@ -80,6 +83,7 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.14.2)
+    geocoder (1.6.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.7)
@@ -202,9 +206,11 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  active_link_to
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  geocoder
   jbuilder (~> 2.7)
   listen (~> 3.3)
   puma (~> 5.0)
