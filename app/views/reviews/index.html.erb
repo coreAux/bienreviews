@@ -28,6 +28,12 @@
 
 <% @reviews.each do |review| %>
   <div class="review">
-    <%= link_to review.restaurant, review_path(review) %>
+    <%= link_to review_path(review) do %>
+      <h2><%= review.restaurant %></h2>
+      <p>
+        <%= review.cuisine %> -
+        <%= pluralize review.comments.count, "comment" %>
+      </p>
+    <% end %>
   </div>
 <% end %>
