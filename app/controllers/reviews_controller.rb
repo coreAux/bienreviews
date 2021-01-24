@@ -42,6 +42,9 @@ class ReviewsController < ApplicationController
     # take the info from the form (and add it to the model)
     @review = Review.new(form_params)
 
+    # and then associate it with the user
+    @review.user = @current_user
+
     # check if model can be saved
     if @review.save
 
@@ -70,8 +73,10 @@ class ReviewsController < ApplicationController
     # find the individual review
     @review = Review.find(params[:id])
 
-    # destroy
-    @review.destroy
+    # destroy if they have access
+    if @review.user == @current_user
+      @review.destroy
+    end
 
     # redirect to home page
     redirect_to root_path
@@ -83,6 +88,10 @@ class ReviewsController < ApplicationController
     #find the individual review (to edit)
     @review = Review.find(params[:id])
 
+    if @review.user != @current_user
+      redirect_to root_path
+    end
+
   end
 
   def update
@@ -90,18 +99,18 @@ class ReviewsController < ApplicationController
     # find the individual review
     @review = Review.find(params[:id])
 
-    # update with the new info from the form
-    if @review.update(form_params)
-
-      # redirect somewhere
-      redirect_to review_path(@review)
-
+    if @review.user != @current_user
+      redirect_to root_path
     else
-
-      render "edit"
-
+      # update with the new info from the form
+      if @review.update(form_params)
+        # redirect somewhere
+        redirect_to review_path(@review)
+      else
+        render "edit"
+      end
     end
-
+    
   end
 
   def form_params
